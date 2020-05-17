@@ -5,10 +5,16 @@
  */
 package proyectoalquilerdevehiculos.Vista;
 
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import proyectoalquilerdevehiculos.ControladorLogin.ControladorLogin;
+import proyectoalquilerdevehiculos.ControladorLogin.ControladorVehiculos;
+import proyectoalquilerdevehiculos.clases.AbstractVehiculo;
 import proyectoalquilerdevehiculos.clases.Usuario;
 
 /**
@@ -18,7 +24,7 @@ import proyectoalquilerdevehiculos.clases.Usuario;
 public class Login extends javax.swing.JFrame {
 private ControladorLogin controlLogin;
     private Usuario usuarioAutenticado;
-   
+   private ControladorVehiculos listadevehiculos;
     /**
      * Creates new form Login
      */
@@ -28,7 +34,7 @@ private ControladorLogin controlLogin;
         MnCrearUsuario.setVisible(estado);
         mnlistau.setVisible(estado);
         vehiculos.setVisible(estado);
-        MnuCarros.setVisible(estado);
+        MnuCoches.setVisible(estado);
         Mnumotos.setVisible(estado);
          }
     
@@ -45,7 +51,7 @@ private ControladorLogin controlLogin;
                  iniciarMenus(false);
                  
                  vehiculos.setVisible(true);
-                 MnuCarros.setVisible(true);
+                 MnuCoches.setVisible(true);
                   Mnumotos.setVisible(true);
                 break;
          }
@@ -69,13 +75,17 @@ private ControladorLogin controlLogin;
         TxtContraseña = new javax.swing.JPasswordField();
         txtlogin = new javax.swing.JTextField();
         BotonIngresar = new javax.swing.JButton();
+        jincoches = new javax.swing.JInternalFrame();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblCoches = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         MnCrearUsuario = new javax.swing.JMenuItem();
         mnlistau = new javax.swing.JMenuItem();
         vehiculos = new javax.swing.JMenu();
         Mnumotos = new javax.swing.JMenuItem();
-        MnuCarros = new javax.swing.JMenuItem();
+        MnuCoches = new javax.swing.JMenuItem();
+        mnuFurgonetas = new javax.swing.JMenuItem();
         mnucerrarsesion = new javax.swing.JMenuItem();
         mnsalir = new javax.swing.JMenuItem();
 
@@ -157,7 +167,60 @@ private ControladorLogin controlLogin;
         );
 
         desktopPane.add(jInternalFrame2);
-        jInternalFrame2.setBounds(30, 10, 600, 360);
+        jInternalFrame2.setBounds(1050, 60, 600, 360);
+
+        jincoches.setClosable(true);
+        jincoches.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        jincoches.setIconifiable(true);
+        jincoches.setMaximizable(true);
+        jincoches.setResizable(true);
+        jincoches.setTitle("listado de coches");
+        jincoches.setVisible(false);
+
+        tblCoches.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Extras", "Matricula", "Km", "Estado", "ValorAlquiler"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblCoches);
+
+        javax.swing.GroupLayout jincochesLayout = new javax.swing.GroupLayout(jincoches.getContentPane());
+        jincoches.getContentPane().setLayout(jincochesLayout);
+        jincochesLayout.setHorizontalGroup(
+            jincochesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jincochesLayout.createSequentialGroup()
+                .addContainerGap(126, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(120, 120, 120))
+        );
+        jincochesLayout.setVerticalGroup(
+            jincochesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jincochesLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(182, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(jincoches);
+        jincoches.setBounds(30, 10, 610, 420);
 
         menuBar.setDoubleBuffered(true);
         menuBar.setEnabled(false);
@@ -190,8 +253,16 @@ private ControladorLogin controlLogin;
         Mnumotos.setText("motos");
         vehiculos.add(Mnumotos);
 
-        MnuCarros.setText("carros");
-        vehiculos.add(MnuCarros);
+        MnuCoches.setText("coches");
+        MnuCoches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnuCochesActionPerformed(evt);
+            }
+        });
+        vehiculos.add(MnuCoches);
+
+        mnuFurgonetas.setText("Furgonetas");
+        vehiculos.add(mnuFurgonetas);
 
         fileMenu.add(vehiculos);
 
@@ -223,12 +294,12 @@ private ControladorLogin controlLogin;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1597, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
         );
 
         pack();
@@ -309,6 +380,31 @@ private ControladorLogin controlLogin;
         // TODO add your handling code here:
     }//GEN-LAST:event_MnCrearUsuarioActionPerformed
 
+     private void llenarCoches(){
+         
+         DefaultTableModel model = (DefaultTableModel) tblCoches.getModel();
+        model.getDataVector().removeAllElements();
+
+        for (AbstractVehiculo coches:listadevehiculos.obtenerVehiculos("coches")) {
+           model.addRow(coches.obtenerArregloObjeto());
+    }
+        tblCoches.setModel(model);
+     }
+    
+    private void MnuCochesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCochesActionPerformed
+jincoches.show();
+        llenarCoches();
+          jincoches.repaint();
+        jincoches.show();
+        if (jincoches.isIcon()) {
+          try {
+                jincoches.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_MnuCochesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,7 +443,7 @@ private ControladorLogin controlLogin;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonIngresar;
     private javax.swing.JMenuItem MnCrearUsuario;
-    private javax.swing.JMenuItem MnuCarros;
+    private javax.swing.JMenuItem MnuCoches;
     private javax.swing.JMenuItem Mnumotos;
     private javax.swing.JPasswordField TxtContraseña;
     private javax.swing.JDesktopPane desktopPane;
@@ -356,10 +452,14 @@ private ControladorLogin controlLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JInternalFrame jincoches;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mnlistau;
     private javax.swing.JMenuItem mnsalir;
+    private javax.swing.JMenuItem mnuFurgonetas;
     private javax.swing.JMenuItem mnucerrarsesion;
+    private javax.swing.JTable tblCoches;
     private javax.swing.JTextField txtlogin;
     private javax.swing.JMenu vehiculos;
     // End of variables declaration//GEN-END:variables

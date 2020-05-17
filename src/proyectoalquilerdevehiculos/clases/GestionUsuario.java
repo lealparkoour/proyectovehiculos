@@ -9,20 +9,6 @@ package proyectoalquilerdevehiculos.clases;
  *
  * @author Estudiante
  */
-public interface VehiculoAble   {
+public class GestionUsuario {
     
-    public void  alquilar();
-    public void  devolver(int kmfinal);
-    public double calcularalquiler(int km);
-
-    @Override
-    public String toString();
-   
- 
-    
-    
-    
-   
-    
-              
 }

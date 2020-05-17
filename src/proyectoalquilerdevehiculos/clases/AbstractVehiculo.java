@@ -5,30 +5,24 @@
  */
 package proyectoalquilerdevehiculos.clases;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 /**
  *
  * @author Estudiante
  */
 public abstract class AbstractVehiculo implements VehiculoAble{
+private String matricula;
+private int km;
+    private boolean Estado;
+ private double ValorAlquiler;
 
-    @Override
-    public abstract String mostrardatos();
-
-    @Override
-    public abstract double calcularalquiler(int km);
-
-    @Override
-    public abstract void devolver(int kmfinal);
-
-    @Override
-    public abstract void alquilar();
-
-    private String matricula;
-
-   
-  private int km;
-    private boolean estado;
-    private double ValorAlquiler;
+    public AbstractVehiculo(String matricula, int km, boolean Estado, double ValorAlquiler) {
+        this.matricula = matricula;
+        this.km = km;
+        this.Estado = Estado;
+        this.ValorAlquiler = ValorAlquiler;
+    }
 
     public String getMatricula() {
         return matricula;
@@ -47,11 +41,11 @@ public abstract class AbstractVehiculo implements VehiculoAble{
     }
 
     public boolean isEstado() {
-        return estado;
+        return Estado;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setEstado(boolean Estado) {
+        this.Estado = Estado;
     }
 
     public double getValorAlquiler() {
@@ -61,6 +55,34 @@ public abstract class AbstractVehiculo implements VehiculoAble{
     public void setValorAlquiler(double ValorAlquiler) {
         this.ValorAlquiler = ValorAlquiler;
     }
+
     
+ 
+ 
+ public abstract Object [] obtenerArregloObjeto();
+ 
+
+   
+   public abstract void alquilar();
+   
     
-}
+   
+   public abstract String devolver();
+   
+   
+          
+    
+
+    
+     
+ 
+   
+    
+
+        
+    
+    }
+   
+    
+
+   

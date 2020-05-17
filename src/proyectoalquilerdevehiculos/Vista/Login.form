@@ -49,9 +49,17 @@
                     <Property name="text" type="java.lang.String" value="motos"/>
                   </Properties>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="MnuCarros">
+                <MenuItem class="javax.swing.JMenuItem" name="MnuCoches">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="carros"/>
+                    <Property name="text" type="java.lang.String" value="coches"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MnuCochesActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="mnuFurgonetas">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Furgonetas"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>
@@ -104,14 +112,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-              <Component id="desktopPane" pref="656" max="32767" attributes="0"/>
+              <Component id="desktopPane" pref="1597" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="desktopPane" pref="383" max="32767" attributes="0"/>
+          <Component id="desktopPane" pref="531" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -134,7 +142,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="10" width="600" height="360"/>
+              <AbsoluteConstraints x="1050" y="60" width="600" height="360"/>
             </Constraint>
           </Constraints>
 
@@ -228,6 +236,67 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonIngresarActionPerformed"/>
               </Events>
             </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JInternalFrame" name="jincoches">
+          <Properties>
+            <Property name="closable" type="boolean" value="true"/>
+            <Property name="defaultCloseOperation" type="int" value="1"/>
+            <Property name="iconifiable" type="boolean" value="true"/>
+            <Property name="maximizable" type="boolean" value="true"/>
+            <Property name="resizable" type="boolean" value="true"/>
+            <Property name="title" type="java.lang.String" value="listado de coches"/>
+            <Property name="visible" type="boolean" value="false"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="30" y="10" width="610" height="420"/>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="126" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="348" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="122" max="-2" attributes="0"/>
+                      <EmptySpace pref="182" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTable" name="tblCoches">
+                  <Properties>
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                      <Table columnCount="5" rowCount="0">
+                        <Column editable="false" title="Extras" type="java.lang.Boolean"/>
+                        <Column editable="false" title="Matricula" type="java.lang.String"/>
+                        <Column editable="false" title="Km" type="java.lang.Integer"/>
+                        <Column editable="false" title="Estado" type="java.lang.Boolean"/>
+                        <Column editable="false" title="ValorAlquiler" type="java.lang.Double"/>
+                      </Table>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>
